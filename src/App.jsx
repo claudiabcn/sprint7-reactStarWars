@@ -1,12 +1,10 @@
-import { useState } from "react";
+import ShipsList from "./components/shipsList";
 
 function App() {
-  const [count, setCount] = useState(0);
-
   return (
-    <>
-      <h1>Vite + React</h1>
-    </>
+    <div className="App">
+      <ShipsList />
+    </div>
   );
 }
 
