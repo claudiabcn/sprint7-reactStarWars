@@ -7,9 +7,10 @@ interface ShipsListProps {
   loadingMore: boolean;
   hasMore: boolean;
   onLoadMore: () => void;
+  onSelectShip: (ship: Starship) => void; 
 }
 
-function ShipsList({ ships, loadingMore, hasMore, onLoadMore }: ShipsListProps) {
+function ShipsList({ ships, loadingMore, hasMore, onLoadMore, onSelectShip }: ShipsListProps) {
   const { lastElementRef } = useInfiniteScroll({
     onLoadMore,
     hasMore,
@@ -26,7 +27,7 @@ function ShipsList({ ships, loadingMore, hasMore, onLoadMore }: ShipsListProps) 
           
           return (
             <li key={index} ref={isLast ? lastElementRef : null}>
-              <Card>
+              <Card onClick={() => onSelectShip(ship)}>  
                 <strong>Nombre:</strong> {ship.name} - <strong>Modelo:</strong> {ship.model}
               </Card>
             </li>
