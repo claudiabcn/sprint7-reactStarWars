@@ -12,7 +12,7 @@ function ShipDetail({ ship, onBack }: ShipDetailProps) {
         onClick={onBack}
         className="mb-6 px-6 py-3 bg-starwars-gray border-2 border-starwars-yellow text-starwars-yellow rounded-lg hover:bg-starwars-yellow hover:text-black transition-all font-bold"
       >
-        ← Volver
+        ← Return
       </button>
 
       <div className="bg-starwars-gray border-2 border-starwars-yellow rounded-lg p-8 shadow-lg shadow-starwars-yellow/20">
