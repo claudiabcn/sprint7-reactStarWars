@@ -1,0 +1,50 @@
+import { Movie } from "../config/types";
+import { Button } from "../ui/Button";
+
+interface MovieDetailProps {
+  movie: Movie;
+  onBack: () => void;
+}
+
+function MovieDetail({ movie, onBack }: MovieDetailProps) {
+  const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
+
+  return (
+    <div className="p-8 max-w-4xl mx-auto">
+      <Button onClick={onBack} className="mb-6">
+        ← Back to Movies
+      </Button>
+
+      <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-xl border-2 border-purple-200">
+        <h1 className="text-4xl font-bold mb-4 text-purple-600">
+          {movie.title}
+        </h1>
+        
+        {movie.poster_path && (
+          <img 
+            src={`${IMAGE_BASE_URL}${movie.poster_path}`}
+            alt={movie.title}
+            className="w-full max-w-md mx-auto rounded-lg mb-6 shadow-lg"
+          />
+        )}
+
+        <div className="space-y-3 text-gray-700">
+          <p>
+            <strong className="text-purple-600">Original Title:</strong> {movie.original_title}
+          </p>
+          <p>
+            <strong className="text-purple-600">Release Date:</strong> {movie.release_date}
+          </p>
+          <p>
+            <strong className="text-purple-600">Rating:</strong> {movie.vote_average.toFixed(1)}/10
+          </p>
+          <p>
+            <strong className="text-purple-600">Overview:</strong> {movie.overview}
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export default MovieDetail;

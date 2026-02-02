@@ -1,10 +1,21 @@
-import { StarshipsResponse } from "../config/types";
+import { MoviesResponse } from "../config/types";
 import { API_BASE_URL } from "../config/appData";
 
-export const getStarships = async (
+const TOKEN = import.meta.env.VITE_TMDB_TOKEN;
+
+export const getPopularMovies = async (
   page: number = 1,
-): Promise<StarshipsResponse> => {
-  const response = await fetch(`${API_BASE_URL}/starships/?page=${page}`);
+): Promise<MoviesResponse> => {
+  const response = await fetch(
+    `${API_BASE_URL}/movie/popular?page=${page}&language=en-EN`,
+    {
+      headers: {
+        Authorization: `Bearer ${TOKEN}`,
+        "Content-Type": "application/json",
+      },
+    }
+  );
+
   const data = await response.json();
   return data;
 };

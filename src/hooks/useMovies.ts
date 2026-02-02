@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
-import { getStarships } from "../services/api";
-import { Starship } from "../config/types";
+import { getPopularMovies } from "../services/api";
+import { Movie } from "../config/types";
 
-export const useShips = () => {
-  const [ships, setShips] = useState<Starship[]>([]);
+export const useMovies = () => {
+  const [movies, setMovies] = useState<Movie[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [loadingMore, setLoadingMore] = useState<boolean>(false);
   const [hasMore, setHasMore] = useState<boolean>(true);
@@ -11,10 +11,10 @@ export const useShips = () => {
   const [error, setError] = useState<string | null>(null); 
 
   useEffect(() => {
-    fetchShips(1);
+    fetchMovies(1);
   }, []);
 
-  const fetchShips = async (page: number) => {
+  const fetchMovies = async (page: number) => {
     try {
       if (page === 1) {
         setLoading(true);
@@ -22,14 +22,14 @@ export const useShips = () => {
         setLoadingMore(true);
       }
 
-      const data = await getStarships(page);
+      const data = await getPopularMovies(page);
       
-      setShips(prevShips => page === 1 ? data.results : [...prevShips, ...data.results]);
-      setHasMore(data.next !== null);
+      setMovies(prevMovies => page === 1 ? data.results : [...prevMovies, ...data.results]);
+      setHasMore(page < data.total_pages);
       setCurrentPage(page);
       setError(null);  
     } catch (err) {
-      setError('Error when loading starships'); 
+      setError('Error when loading movies'); 
       setHasMore(false);
     } finally {
       setLoading(false);
@@ -39,12 +39,12 @@ export const useShips = () => {
 
   const loadMore = useCallback(() => {
     if (!loadingMore && hasMore) {
-      fetchShips(currentPage + 1);
+      fetchMovies(currentPage + 1);
     }
   }, [loadingMore, hasMore, currentPage]);
 
   return {
-    ships,
+    movies,
     loading,
     loadingMore,
     hasMore,

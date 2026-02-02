@@ -1,9 +1,9 @@
-import ShipsContainer from "./components/shipsContainer";
+import MoviesContainer from "./components/moviesContainer";
 
 function App() {
   return (
-    <div className="min-h-screen bg-starwars-black">
-      <ShipsContainer />
+    <div className="min-h-screen">
+      <MoviesContainer />
     </div>
   );
 }
