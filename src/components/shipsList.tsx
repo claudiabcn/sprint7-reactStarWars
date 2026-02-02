@@ -52,7 +52,7 @@ function ShipsList({ ships, loadingMore, hasMore, onLoadMore, onSelectShip }: Sh
 
       {!hasMore && (
         <p className="text-center text-starwars-yellow">
-          There are not more starships to show
+          There are no more starships to show
         </p>
       )}
 
