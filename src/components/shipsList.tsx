@@ -7,7 +7,7 @@ interface ShipsListProps {
   loadingMore: boolean;
   hasMore: boolean;
   onLoadMore: () => void;
-  onSelectShip: (ship: Starship) => void; 
+  onSelectShip: (ship: Starship) => void;
 }
 
 function ShipsList({ ships, loadingMore, hasMore, onLoadMore, onSelectShip }: ShipsListProps) {
@@ -19,7 +19,10 @@ function ShipsList({ ships, loadingMore, hasMore, onLoadMore, onSelectShip }: Sh
 
   return (
     <div className="p-8">
-      <h1 className="text-3xl font-bold mb-6">Listado de Naves</h1>
+      <h1 className="text-5xl font-bold mb-6 text-starwars-yellow text-center tracking-wider">
+        STARSHIPS
+      </h1>
+      <div className="h-1 w-48 bg-starwars-yellow mx-auto mb-8"></div>
       
       <ul className="space-y-2 mb-6">
         {ships.map((ship, index) => {
@@ -27,8 +30,13 @@ function ShipsList({ ships, loadingMore, hasMore, onLoadMore, onSelectShip }: Sh
           
           return (
             <li key={index} ref={isLast ? lastElementRef : null}>
-              <Card onClick={() => onSelectShip(ship)}>  
-                <strong>Nombre:</strong> {ship.name} - <strong>Modelo:</strong> {ship.model}
+              <Card onClick={() => onSelectShip(ship)}>
+                <p className="text-starwars-yellow">
+                  <strong>Name:</strong> {ship.name}
+                </p>
+                <p className="text-gray-400 text-sm">
+                  <strong>Model:</strong> {ship.model}
+                </p>
               </Card>
             </li>
           );
@@ -37,19 +45,19 @@ function ShipsList({ ships, loadingMore, hasMore, onLoadMore, onSelectShip }: Sh
 
       {loadingMore && (
         <div className="text-center py-4">
-          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-blue-500"></div>
-          <p className="mt-2 text-gray-600">Cargando más naves...</p>
+          <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-starwars-yellow"></div>
+          <p className="mt-2 text-gray-400">Cargando más naves...</p>
         </div>
       )}
 
       {!hasMore && (
-        <p className="text-center text-gray-500 py-4">
-          No hay más naves para cargar
+        <p className="text-center text-starwars-yellow">
+          There are not more starships to show
         </p>
       )}
 
-      <p className="text-center text-gray-600 mt-4">
-        Mostrando {ships.length} naves
+      <p className="text-center text-starwars-yellow">
+        Showing {ships.length} starships
       </p>
     </div>
   );
