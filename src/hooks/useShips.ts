@@ -29,7 +29,7 @@ export const useShips = () => {
       setCurrentPage(page);
       setError(null);  
     } catch (err) {
-      setError('Error al cargar las naves'); 
+      setError('Error when loading starships'); 
       setHasMore(false);
     } finally {
       setLoading(false);
