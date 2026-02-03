@@ -1,5 +1,6 @@
 import { Movie } from "../config/types";
 import { Button } from "../ui/Button";
+import { IMAGE_BASE_URL } from "../config/appData";
 
 interface MovieDetailProps {
   movie: Movie;
@@ -7,8 +8,6 @@ interface MovieDetailProps {
 }
 
 function MovieDetail({ movie, onBack }: MovieDetailProps) {
-  const IMAGE_BASE_URL = "https://image.tmdb.org/t/p/w500";
-
   return (
     <div className="p-8 max-w-4xl mx-auto">
       <Button onClick={onBack} className="mb-6">

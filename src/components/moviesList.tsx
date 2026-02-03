@@ -46,7 +46,7 @@ function MoviesList({ movies, loadingMore, hasMore, onLoadMore, onSelectMovie }:
       {loadingMore && (
         <div className="text-center py-4">
           <div className="inline-block animate-spin rounded-full h-8 w-8 border-b-2 border-purple-400"></div>
-          <p className="mt-2 text-purple-600">Cargando más películas...</p>
+          <p className="mt-2 text-purple-600">Loading more movies...</p>
         </div>
       )}
 
