@@ -48,9 +48,9 @@ This project is a modern web application to explore Star Wars starships, built w
 
 ## 📸 Demo:
 
-https://sprint7-react-star-wars.vercel.app/
+https://sprint7-movies.vercel.app/
 
-<img width="669" height="615" alt="demo-sp6" src="https://github.com/user-attachments/assets/4d7e69ed-db74-4095-a6db-c701d25ba241" />
+<img width="669" height="615" alt="demo-sp6" src="https://github.com/user-a" />
 
 ## ⭐ Learnings and challenges:
 
