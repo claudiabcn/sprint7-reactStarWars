@@ -1,13 +1,11 @@
-import { useState } from "react";
 import { useMovies } from "../hooks/useMovies";
-import MoviesList from "./moviesList";
-import MovieDetail from "./movieDetail";
+import MoviesList from "../components/moviesList";
 import { LoadingSpinner } from "../ui/LoadingSpinner";
-import { Movie } from "../config/types";
+import { useNavigate } from "react-router-dom";
 
 function MoviesContainer() {
   const { movies, loading, loadingMore, hasMore, error, loadMore } = useMovies();
-  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+  const navigate = useNavigate();
 
   if (loading) {
     return <LoadingSpinner />;
@@ -21,22 +19,13 @@ function MoviesContainer() {
     );
   }
 
-  if (selectedMovie) {
-    return (
-      <MovieDetail 
-        movie={selectedMovie} 
-        onBack={() => setSelectedMovie(null)} 
-      />
-    );
-  }
-
   return (
     <MoviesList
       movies={movies}
       loadingMore={loadingMore}
       hasMore={hasMore}
       onLoadMore={loadMore}
-      onSelectMovie={setSelectedMovie}
+      onSelectMovie={(movie) => navigate(`/movies/${movie.id}`)}
     />
   );
 }
