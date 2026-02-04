@@ -22,11 +22,6 @@ function MoviesList({ movies, loadingMore, hasMore, onLoadMore, onSelectMovie }:
 
   return (
    <div className="p-8">
-    <div className="mb-6">
-      <Button onClick={() => navigate("/homepage")} variant="primary">
-        ← Homepage
-      </Button>
-    </div>
       <h1 className="text-5xl font-bold mb-6 text-purple-600 text-center tracking-wider">
         POPULAR MOVIES
       </h1>
