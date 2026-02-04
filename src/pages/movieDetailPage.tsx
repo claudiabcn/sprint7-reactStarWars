@@ -13,10 +13,10 @@ function MovieDetail() {
   if (!movie) return null;
 
   return (
-    <div className="p-8 max-w-4xl mx-auto">
-      <Button onClick={() => navigate("/movies")} className="mb-6">
-        ← Back to Movies
-      </Button>
+<div className="mb-6">
+  <Button onClick={() => navigate("/movies")}>
+    ← Back to Movies
+  </Button>
 
       <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-xl border-2 border-purple-200">
         <h1 className="text-4xl font-bold mb-4 text-purple-600">
