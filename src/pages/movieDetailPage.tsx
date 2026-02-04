@@ -1,6 +1,5 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useMovieDetail } from "../hooks/useMovieDetail";
-import { Button } from "../ui/Button";
 import { IMAGE_BASE_URL } from "../config/appData";
 
 function MovieDetail() {
