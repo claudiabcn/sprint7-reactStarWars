@@ -13,7 +13,6 @@ function AppRoutes() {
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       
-      {/* Rutas protegidas */}
       <Route 
         path="/movies" 
         element={

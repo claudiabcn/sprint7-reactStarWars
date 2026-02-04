@@ -1,14 +1,20 @@
-import { ReactNode } from 'react';
-
 interface ButtonProps {
   children: ReactNode;
   onClick?: () => void;
   disabled?: boolean;
   variant?: 'primary' | 'secondary';
   className?: string;
+  type?: 'button' | 'submit' | 'reset'; 
 }
 
-export function Button({ children, onClick, disabled = false, variant = 'primary', className = '' }: ButtonProps) {
+export function Button({ 
+  children, 
+  onClick, 
+  disabled = false, 
+  variant = 'primary', 
+  className = '',
+  type = 'button' 
+}: ButtonProps) {
   const baseClasses = "px-6 py-3 rounded-lg transition-all font-medium";
   
   const variantClasses = {
@@ -20,6 +26,7 @@ export function Button({ children, onClick, disabled = false, variant = 'primary
 
   return (
     <button
+      type={type} 
       onClick={onClick}
       disabled={disabled}
       className={`${baseClasses} ${variantClasses[variant]} ${disabledClasses} ${className}`}

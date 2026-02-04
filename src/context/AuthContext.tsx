@@ -1,13 +1,14 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../config/firebase';
-import { loginUser, logoutUser, registerUser } from '../services/authService';
+import { loginUser, logoutUser, registerUser, loginWithGoogle } from '../services/authService';
 
 interface AuthContextType {
   user: User | null;
   loading: boolean;
   login: (email: string, password: string) => Promise<void>;
   register: (email: string, password: string) => Promise<void>;
+  loginGoogle: () => Promise<void>;
   logout: () => Promise<void>;
 }
 
@@ -36,13 +37,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setUser(user);
   };
 
+  const loginGoogle = async () => {
+    const user = await loginWithGoogle();
+    setUser(user);
+  };
+
   const logout = async () => {
     await logoutUser();
     setUser(null);
   };
 
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, logout }}>
+    <AuthContext.Provider value={{ user, loading, login, register, loginGoogle, logout }}>
       {children}
     </AuthContext.Provider>
   );

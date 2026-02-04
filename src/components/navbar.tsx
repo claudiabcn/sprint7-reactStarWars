@@ -1,16 +1,19 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import { Button } from "../ui/Button";
+import { useNavigate } from "react-router-dom";
 
 function Navbar() {
   const { user, logout } = useAuth();
+  const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    try {
-      await logout();
-    } catch (error) {
-      console.error("Error logging out:", error);
-    }
+const handleLogout = async () => {
+  try {
+    navigate('/', { replace: true });
+    await logout();
+  } catch (error) {
+    console.error("Error logging out:", error);
+  }
   };
 
   return (
