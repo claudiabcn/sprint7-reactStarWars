@@ -1,5 +1,7 @@
 import { Movie } from "../config/types";
 import { Card } from "../ui/Card";
+import { Button } from "../ui/Button";
+import { useNavigate } from "react-router-dom";
 import { useInfiniteScroll } from "../hooks/useInfiniteScroll";
 
 interface MoviesListProps {
@@ -16,12 +18,19 @@ function MoviesList({ movies, loadingMore, hasMore, onLoadMore, onSelectMovie }:
     hasMore,
     isLoading: loadingMore,
   });
+  const navigate = useNavigate();
 
   return (
-    <div className="p-8">
+   <div className="p-8">
+    <div className="mb-6">
+      <Button onClick={() => navigate("/homepage")} variant="primary">
+        ← Homepage
+      </Button>
+    </div>
       <h1 className="text-5xl font-bold mb-6 text-purple-600 text-center tracking-wider">
         POPULAR MOVIES
       </h1>
+      
       <div className="h-1 w-48 bg-gradient-to-r from-purple-300 via-pink-300 to-blue-300 mx-auto mb-8 rounded-full"></div>
       
       <ul className="space-y-2 mb-6">
