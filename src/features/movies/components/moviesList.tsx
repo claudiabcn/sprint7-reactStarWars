@@ -1,5 +1,6 @@
 import { Movie } from "../../../config/types";
 import { Card } from "../../../shared/ui/Card";
+import { LoadingSpinner } from "../../../shared/ui/LoadingSpinner";
 import { useInfiniteScroll } from "../../../shared/hooks/useInfiniteScroll";
 
 interface MoviesListProps {
@@ -34,7 +35,8 @@ function MoviesList({ movies, loadingMore, hasMore, onLoadMore, onSelectMovie }:
               <Card onClick={() => onSelectMovie(movie)}>
                 <div className="flex flex-col h-full justify-between">
                   <div>
-                    <h3 className="text-xl font-bold text-purple-800 mb-2 leading-tight">
+
+                    <h3 className="text-xl font-bold text-purple-800 mb-2 leading-tight py-1">
                       {movie.title}
                     </h3>
                     <div className="flex items-center gap-2 text-gray-500 text-sm">
@@ -52,9 +54,8 @@ function MoviesList({ movies, loadingMore, hasMore, onLoadMore, onSelectMovie }:
       </div>
 
       {loadingMore && (
-        <div className="flex flex-col items-center justify-center py-12">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-600"></div>
-          <p className="mt-4 font-medium text-purple-600 animate-pulse">Scanning the galaxy...</p>
+        <div className="py-12">
+          <LoadingSpinner message="Scanning the galaxy for more movies..." />
         </div>
       )}
 
