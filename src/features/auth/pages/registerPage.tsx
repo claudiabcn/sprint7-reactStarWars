@@ -1,60 +1,24 @@
-import { useState, FormEvent } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button } from '../../../shared/ui/Button';
 import { LoadingSpinner } from '../../../shared/ui/LoadingSpinner';
+import { useRegisterForm } from '../hooks/useRegisterForm';
 
 function RegisterPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const { register, loginGoogle } = useAuth();
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setError('');
-
-    if (password !== confirmPassword) {
-      setError('Passwords do not match');
-      return;
-    }
-
-    if (password.length < 6) {
-      setError('Password must be at least 6 characters');
-      return;
-    }
-
-    setLoading(true);
-    try {
-      await register(email, password);
-      navigate('/movies');
-    } catch (err: any) {
-      setError(err.message || 'Error creating account');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleGoogleSignup = async () => {
-    setError('');
-    setLoading(true);
-    try {
-      await loginGoogle();
-      navigate('/movies');
-    } catch (err: any) {
-      setError(err.message || 'Error signing up with Google');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    confirmPassword,
+    setConfirmPassword,
+    error,
+    loading,
+    handleSubmit,
+    handleGoogleSignup,
+  } = useRegisterForm();
 
   return (
-
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100 px-4 py-12">
-      
       <div className="max-w-md w-full bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-purple-200">
         <h2 className="text-4xl py-1 font-bold text-center mb-6 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
           Create Account
@@ -70,7 +34,9 @@ function RegisterPage() {
 
         <form onSubmit={handleSubmit} className="space-y-5">
           <div>
-            <label htmlFor="email" className="block text-gray-700 font-medium mb-2 text-sm">Email</label>
+            <label htmlFor="email" className="block text-gray-700 font-medium mb-2 text-sm">
+              Email
+            </label>
             <input
               id="email"
               type="email"
@@ -83,7 +49,9 @@ function RegisterPage() {
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-gray-700 font-medium mb-2 text-sm">Password</label>
+            <label htmlFor="password" className="block text-gray-700 font-medium mb-2 text-sm">
+              Password
+            </label>
             <input
               id="password"
               type="password"
@@ -96,7 +64,9 @@ function RegisterPage() {
           </div>
 
           <div>
-            <label htmlFor="confirmPassword" className="block text-gray-700 font-medium mb-2 text-sm">Confirm Password</label>
+            <label htmlFor="confirmPassword" className="block text-gray-700 font-medium mb-2 text-sm">
+              Confirm Password
+            </label>
             <input
               id="confirmPassword"
               type="password"
@@ -123,7 +93,6 @@ function RegisterPage() {
           onClick={handleGoogleSignup}
           disabled={loading}
           variant="secondary"
-
           className="w-full flex items-center justify-center bg-white text-gray-700 border border-gray-200 hover:bg-gray-50"
         >
           {loading ? <LoadingSpinner /> : "Continue with Google"}
