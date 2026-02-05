@@ -7,7 +7,8 @@ export const useRegisterForm = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loadingEmail, setLoadingEmail] = useState(false);
+  const [loadingGoogle, setLoadingGoogle] = useState(false);
   
   const { register, loginGoogle } = useAuth();
   const navigate = useNavigate();
@@ -26,27 +27,28 @@ export const useRegisterForm = () => {
       return;
     }
 
-    setLoading(true);
+    setLoadingEmail(true);
     try {
       await register(email, password);
       navigate('/movies');
     } catch (err: any) {
       setError(err.message || 'Error creating account');
     } finally {
-      setLoading(false);
+      setLoadingEmail(false);
     }
   };
 
   const handleGoogleSignup = async () => {
     setError('');
-    setLoading(true);
+    setLoadingGoogle(true);
+
     try {
       await loginGoogle();
       navigate('/movies');
     } catch (err: any) {
       setError(err.message || 'Error signing up with Google');
     } finally {
-      setLoading(false);
+      setLoadingGoogle(false);
     }
   };
 
@@ -58,7 +60,8 @@ export const useRegisterForm = () => {
     confirmPassword,
     setConfirmPassword,
     error,
-    loading,
+    loadingEmail,
+    loadingGoogle,
     handleSubmit,
     handleGoogleSignup,
   };

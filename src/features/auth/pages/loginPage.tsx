@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../../../shared/ui/Button';
-import { LoadingSpinner } from '../../../shared/ui/LoadingSpinner';
 import { useLoginForm } from '../hooks/useLoginForm';
 
 function LoginPage() {
@@ -10,7 +9,8 @@ function LoginPage() {
     password,
     setPassword,
     error,
-    loading,
+    loadingEmail,
+    loadingGoogle,
     handleSubmit,
     handleGoogleLogin,
   } = useLoginForm();
@@ -63,18 +63,11 @@ function LoginPage() {
 
           <Button
             type="submit"
-            disabled={loading}
             variant="primary"
-            className="w-full flex items-center justify-center gap-2"
+            isLoading={loadingEmail}
+            className="w-full"
           >
-            {loading ? (
-              <>
-                <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-                <span>Signing in...</span>
-              </>
-            ) : (
-              'Log In'
-            )}
+            Log In
           </Button>
         </form>
 
@@ -86,11 +79,11 @@ function LoginPage() {
 
         <Button
           onClick={handleGoogleLogin}
-          disabled={loading}
           variant="secondary"
-          className="w-full flex items-center justify-center bg-white/5 text-white border-white/10 hover:bg-white/10"
+          isLoading={loadingGoogle}
+          className="w-full"
         >
-          {loading ? <LoadingSpinner /> : "Continue with Google"}
+          Continue with Google
         </Button>
 
         <p className="text-gray-600 text-center mt-6">

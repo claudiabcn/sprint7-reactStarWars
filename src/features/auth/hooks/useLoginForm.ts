@@ -6,7 +6,8 @@ export const useLoginForm = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
+  const [loadingEmail, setLoadingEmail] = useState(false);
+  const [loadingGoogle, setLoadingGoogle] = useState(false);
   
   const { login, loginGoogle } = useAuth();
   const navigate = useNavigate();
@@ -14,7 +15,7 @@ export const useLoginForm = () => {
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError('');
-    setLoading(true);
+    setLoadingEmail(true);
 
     try {
       await login(email, password);
@@ -22,13 +23,13 @@ export const useLoginForm = () => {
     } catch (err: any) {
       setError(err.message || 'Error logging in');
     } finally {
-      setLoading(false);
+      setLoadingEmail(false);
     }
   };
 
   const handleGoogleLogin = async () => {
     setError('');
-    setLoading(true);
+    setLoadingGoogle(true);
 
     try {
       await loginGoogle();
@@ -36,7 +37,7 @@ export const useLoginForm = () => {
     } catch (err: any) {
       setError(err.message || 'Error logging in with Google');
     } finally {
-      setLoading(false);
+      setLoadingGoogle(false);
     }
   };
 
@@ -46,7 +47,8 @@ export const useLoginForm = () => {
     password,
     setPassword,
     error,
-    loading,
+    loadingEmail,
+    loadingGoogle,
     handleSubmit,
     handleGoogleLogin,
   };

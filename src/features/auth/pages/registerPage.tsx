@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../../../shared/ui/Button';
-import { LoadingSpinner } from '../../../shared/ui/LoadingSpinner';
 import { useRegisterForm } from '../hooks/useRegisterForm';
 
 function RegisterPage() {
@@ -12,7 +11,8 @@ function RegisterPage() {
     confirmPassword,
     setConfirmPassword,
     error,
-    loading,
+    loadingEmail,
+    loadingGoogle,
     handleSubmit,
     handleGoogleSignup,
   } = useRegisterForm();
@@ -78,8 +78,13 @@ function RegisterPage() {
             />
           </div>
 
-          <Button type="submit" disabled={loading} variant="primary" className="w-full py-3">
-            {loading ? <LoadingSpinner /> : 'Sign Up'}
+          <Button 
+            type="submit" 
+            variant="primary" 
+            isLoading={loadingEmail}
+            className="w-full"
+          >
+            Sign Up
           </Button>
         </form>
 
@@ -91,11 +96,11 @@ function RegisterPage() {
 
         <Button
           onClick={handleGoogleSignup}
-          disabled={loading}
           variant="secondary"
-          className="w-full flex items-center justify-center bg-white text-gray-700 border border-gray-200 hover:bg-gray-50"
+          isLoading={loadingGoogle}
+          className="w-full"
         >
-          {loading ? <LoadingSpinner /> : "Continue with Google"}
+          Continue with Google
         </Button>
 
         <p className="text-gray-600 text-center mt-6 text-sm">

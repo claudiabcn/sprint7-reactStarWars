@@ -21,8 +21,18 @@ export const loginUser = async (email: string, password: string): Promise<User> 
 };
 
 export const loginWithGoogle = async (): Promise<User> => {
-  const userCredential = await signInWithPopup(auth, googleProvider);
-  return userCredential.user;
+  try {
+    const userCredential = await signInWithPopup(auth, googleProvider);
+    return userCredential.user;
+  } catch (error: any) {
+
+    if (error.code === 'auth/popup-closed-by-user' || 
+        error.code === 'auth/cancelled-popup-request') {
+      throw new Error('Login cancelled');
+    }
+
+    throw error;
+  }
 };
 
 export const logoutUser = async (): Promise<void> => {

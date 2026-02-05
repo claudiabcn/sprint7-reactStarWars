@@ -1,19 +1,19 @@
-interface ButtonProps {
+import { ReactNode, ButtonHTMLAttributes } from 'react';
+
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
-  onClick?: () => void;
-  disabled?: boolean;
   variant?: 'primary' | 'secondary';
-  className?: string;
-  type?: 'button' | 'submit' | 'reset'; 
+  isLoading?: boolean;
 }
 
 export function Button({ 
   children, 
-  onClick, 
   disabled = false, 
   variant = 'primary', 
   className = '',
-  type = 'button' 
+  type = 'button',
+  isLoading = false,
+  ...props
 }: ButtonProps) {
   const baseClasses = "px-6 py-3 rounded-lg transition-all font-medium";
   
@@ -27,11 +27,15 @@ export function Button({
   return (
     <button
       type={type} 
-      onClick={onClick}
-      disabled={disabled}
+      disabled={disabled || isLoading}
       className={`${baseClasses} ${variantClasses[variant]} ${disabledClasses} ${className}`}
+      {...props}
     >
-      {children}
+      {isLoading ? (
+        <div className="inline-block animate-spin rounded-full h-5 w-5 border-2 border-current/30 border-t-current"></div>
+      ) : (
+        children
+      )}
     </button>
   );
 }
