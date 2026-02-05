@@ -1,7 +1,9 @@
 import { useNavigate } from "react-router-dom";
+
 import { Button } from "../ui/Button";
 
 function HomePage() {
+  
   const navigate = useNavigate();
 
   return (
@@ -24,6 +26,4 @@ function HomePage() {
     </div>
   );
 }
-
-
 export default HomePage;
