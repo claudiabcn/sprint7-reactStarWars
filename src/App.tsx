@@ -1,6 +1,6 @@
 import { BrowserRouter } from "react-router-dom";
 import { AuthProvider } from "./context/AuthContext";
-import Navbar from "./components/navbar";
+import Layout from "./components/layout";
 import AppRoutes from "./routes/routes";
 
 function App() {
@@ -8,8 +8,9 @@ function App() {
     <AuthProvider>
       <BrowserRouter>
         <div className="min-h-screen">
-          <Navbar />
-          <AppRoutes />
+          <Layout>
+            <AppRoutes />
+          </Layout>
         </div>
       </BrowserRouter>
     </AuthProvider>

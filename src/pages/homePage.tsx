@@ -20,7 +20,7 @@ function HomePage() {
         </p>
 
         <Button onClick={() => navigate("/movies")} variant="primary">
-          Explore Movies
+          Explore movies
         </Button>
       </div>
     </div>

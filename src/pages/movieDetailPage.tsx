@@ -13,7 +13,7 @@ function MovieDetail() {
 
   return (
     <div className="mb-6">
-      <div className="bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-xl border-2 border-purple-200">
+      <div className="mt-12 bg-white/80 backdrop-blur-sm rounded-lg p-6 shadow-xl border-2 border-purple-200">
 
         <h1 className="text-4xl font-bold mb-4 text-purple-600">
           {movie.title}
