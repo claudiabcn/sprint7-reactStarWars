@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getMovieById } from "../services/api";
-import { Movie } from "../config/types";
+import { Movie } from "../../../config/types";
 
 export const useMovieDetail = (id: string | undefined) => {
   const [movie, setMovie] = useState<Movie | null>(null);

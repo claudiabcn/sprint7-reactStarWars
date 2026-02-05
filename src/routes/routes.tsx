@@ -1,10 +1,10 @@
 import { Routes, Route, Navigate } from "react-router-dom";
-import HomePage from "../pages/homePage";
-import MoviesContainer from "../pages/moviesContainerPage";
-import MovieDetail from "../pages/movieDetailPage";
-import LoginPage from "../pages/loginPage";
-import RegisterPage from "../pages/registerPage";
-import ProtectedRoute from "../guards/ProtectedRoute";
+import HomePage from "../features/home/pages/homePage";
+import MoviesContainer from "../features/movies/pages/moviesContainerPage";
+import MovieDetail from "../features/movies/pages/movieDetailPage";
+import LoginPage from "../features/auth/pages/loginPage";
+import RegisterPage from "../features/auth/pages/registerPage";
+import ProtectedRoute from "../features/auth/guards/ProtectedRoute";
 
 function AppRoutes() {
   return (

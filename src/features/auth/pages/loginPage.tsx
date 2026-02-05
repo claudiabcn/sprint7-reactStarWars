@@ -1,7 +1,7 @@
 import { useState, FormEvent } from 'react';
 import { useAuth } from '../context/AuthContext';
 import { useNavigate, Link } from 'react-router-dom';
-import { Button } from '../ui/Button';
+import { Button } from '../../../shared/ui/Button';
 
 function LoginPage() {
   const [email, setEmail] = useState('');

@@ -1,5 +1,5 @@
-import { Movie, MoviesResponse } from "../config/types";
-import { API_BASE_URL } from "../config/appData";
+import { Movie, MoviesResponse } from "../../../config/types";
+import { API_BASE_URL } from "../../../config/appData";
 
 const TOKEN = import.meta.env.VITE_TMDB_TOKEN;
 

@@ -1,9 +1,7 @@
 import { useMovies } from "../hooks/useMovies";
 import MoviesList from "../components/moviesList";
-import { LoadingSpinner } from "../ui/LoadingSpinner";
+import { LoadingSpinner } from "../../../shared/ui/LoadingSpinner";
 import { useNavigate } from "react-router-dom";
-
-
 
 function MoviesContainer() {
   const { movies, loading, loadingMore, hasMore, error, loadMore } = useMovies();

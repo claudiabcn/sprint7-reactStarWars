@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 
-import { Button } from "../ui/Button";
+import { Button } from "../../../shared/ui/Button";
 
 function HomePage() {
   
