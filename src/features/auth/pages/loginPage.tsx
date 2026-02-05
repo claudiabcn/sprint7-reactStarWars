@@ -1,45 +1,19 @@
-import { useState, FormEvent } from 'react';
-import { useAuth } from '../context/AuthContext';
-import { useNavigate, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Button } from '../../../shared/ui/Button';
 import { LoadingSpinner } from '../../../shared/ui/LoadingSpinner';
+import { useLoginForm } from '../hooks/useLoginForm';
 
 function LoginPage() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [loading, setLoading] = useState(false);
-  const { login, loginGoogle } = useAuth();
-  const navigate = useNavigate();
-
-  const handleSubmit = async (e: FormEvent) => {
-    e.preventDefault();
-    setError('');
-    setLoading(true);
-
-    try {
-      await login(email, password);
-      navigate('/movies');
-    } catch (err: any) {
-      setError(err.message || 'Error logging in');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleGoogleLogin = async () => {
-    setError('');
-    setLoading(true);
-
-    try {
-      await loginGoogle();
-      navigate('/movies');
-    } catch (err: any) {
-      setError(err.message || 'Error logging in with Google');
-    } finally {
-      setLoading(false);
-    }
-  };
+  const {
+    email,
+    setEmail,
+    password,
+    setPassword,
+    error,
+    loading,
+    handleSubmit,
+    handleGoogleLogin,
+  } = useLoginForm();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100 px-4">
@@ -87,21 +61,21 @@ function LoginPage() {
             />
           </div>
 
-<Button
-  type="submit"
-  disabled={loading}
-  variant="primary"
-  className="w-full flex items-center justify-center gap-2"
->
-  {loading ? (
-    <>
-      <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
-      <span>Signing in...</span>
-    </>
-  ) : (
-    'Log In'
-  )}
-</Button>
+          <Button
+            type="submit"
+            disabled={loading}
+            variant="primary"
+            className="w-full flex items-center justify-center gap-2"
+          >
+            {loading ? (
+              <>
+                <div className="h-5 w-5 animate-spin rounded-full border-2 border-white/30 border-t-white" />
+                <span>Signing in...</span>
+              </>
+            ) : (
+              'Log In'
+            )}
+          </Button>
         </form>
 
         <div className="my-6 flex items-center">
@@ -111,13 +85,13 @@ function LoginPage() {
         </div>
 
         <Button
-  onClick={handleGoogleLogin}
-  disabled={loading}
-  variant="secondary"
-  className="w-full flex items-center justify-center bg-white/5 text-white border-white/10 hover:bg-white/10"
->
-  {loading ? <LoadingSpinner /> : "Continue with Google"}
-</Button>
+          onClick={handleGoogleLogin}
+          disabled={loading}
+          variant="secondary"
+          className="w-full flex items-center justify-center bg-white/5 text-white border-white/10 hover:bg-white/10"
+        >
+          {loading ? <LoadingSpinner /> : "Continue with Google"}
+        </Button>
 
         <p className="text-gray-600 text-center mt-6">
           Don't have an account?{' '}
