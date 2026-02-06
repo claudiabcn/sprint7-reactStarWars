@@ -8,13 +8,9 @@ export const useMovies = () => {
   const [loadingMore, setLoadingMore] = useState<boolean>(false);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [error, setError] = useState<string | null>(null); 
+  const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    fetchMovies(1);
-  }, []);
-
-  const fetchMovies = async (page: number) => {
+  const fetchMovies = useCallback(async (page: number) => {
     try {
       if (page === 1) {
         setLoading(true);
@@ -27,28 +23,34 @@ export const useMovies = () => {
       setMovies(prevMovies => page === 1 ? data.results : [...prevMovies, ...data.results]);
       setHasMore(page < data.total_pages);
       setCurrentPage(page);
-      setError(null);  
+      setError(null);
     } catch (err) {
-      setError('Error when loading movies'); 
+      const errorMessage = err instanceof Error ? err.message : 'Error when loading movies';
+      setError(errorMessage);
       setHasMore(false);
+      console.error('Error fetching movies:', err);
     } finally {
       setLoading(false);
       setLoadingMore(false);
     }
-  };
+  }, []);
+
+  useEffect(() => {
+    fetchMovies(1);
+  }, [fetchMovies]);
 
   const loadMore = useCallback(() => {
     if (!loadingMore && hasMore) {
       fetchMovies(currentPage + 1);
     }
-  }, [loadingMore, hasMore, currentPage]);
+  }, [loadingMore, hasMore, currentPage, fetchMovies]);
 
   return {
     movies,
     loading,
     loadingMore,
     hasMore,
-    error,     
+    error,
     loadMore,
   };
 };

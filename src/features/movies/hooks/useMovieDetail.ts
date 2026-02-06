@@ -8,22 +8,41 @@ export const useMovieDetail = (id: string | undefined) => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!id) return;
+    if (!id) {
+      setLoading(false);
+      return;
+    }
+
+    let isCancelled = false;
 
     const fetchMovie = async () => {
       try {
         setLoading(true);
+        setError(null); 
+        
         const data = await getMovieById(id);
-        setMovie(data);
-        setError(null);
+        
+        if (!isCancelled) {
+          setMovie(data);
+        }
       } catch (err) {
-        setError("Error when loading movie");
+        if (!isCancelled) {
+          const errorMessage = err instanceof Error ? err.message : 'Error when loading movie';
+          setError(errorMessage);
+          console.error('Error fetching movie:', err);
+        }
       } finally {
-        setLoading(false);
+        if (!isCancelled) {
+          setLoading(false);
+        }
       }
     };
 
     fetchMovie();
+
+    return () => {
+      isCancelled = true;
+    };
   }, [id]);
 
   return { movie, loading, error };
