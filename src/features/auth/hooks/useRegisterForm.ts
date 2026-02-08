@@ -1,6 +1,7 @@
 import { useState, FormEvent } from 'react';
 import { useAuth } from '../context/AuthContext';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { AuthServiceError } from '../services/authService';
 
 export const useRegisterForm = () => {
   const [email, setEmail] = useState('');
@@ -12,6 +13,9 @@ export const useRegisterForm = () => {
   
   const { register, loginGoogle } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const from = (location.state as any)?.from?.pathname || '/movies';
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -30,9 +34,17 @@ export const useRegisterForm = () => {
     setLoadingEmail(true);
     try {
       await register(email, password);
-      navigate('/movies');
-    } catch (err: any) {
-      setError(err.message || 'Error creating account');
+
+      navigate(from, { replace: true });
+    } catch (err) {
+
+      if (err instanceof AuthServiceError) {
+        setError(err.message);
+      } else if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('Error creating account');
+      }
     } finally {
       setLoadingEmail(false);
     }
@@ -44,9 +56,17 @@ export const useRegisterForm = () => {
 
     try {
       await loginGoogle();
-      navigate('/movies');
-    } catch (err: any) {
-      setError(err.message || 'Error signing up with Google');
+
+      navigate(from, { replace: true });
+    } catch (err) {
+
+      if (err instanceof AuthServiceError) {
+        setError(err.message);
+      } else if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError('Error signing up with Google');
+      }
     } finally {
       setLoadingGoogle(false);
     }
