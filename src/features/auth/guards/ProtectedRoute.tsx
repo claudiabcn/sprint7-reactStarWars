@@ -1,5 +1,6 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import { LoadingSpinner } from '../../../shared/ui/LoadingSpinner';
 
 interface ProtectedRouteProps {
   children: JSX.Element;
@@ -7,18 +8,13 @@ interface ProtectedRouteProps {
 
 function ProtectedRoute({ children }: ProtectedRouteProps) {
   const { user, loading } = useAuth();
+  const location = useLocation();
 
   if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100">
-        <div className="text-2xl font-semibold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
-          Loading...
-        </div>
-      </div>
-    );
+    return <LoadingSpinner />;
   }
 
-  return user ? children : <Navigate to="/login" />;
+  return user ? children : <Navigate to="/login" state={{ from: location }} replace />;
 }
 
 export default ProtectedRoute;

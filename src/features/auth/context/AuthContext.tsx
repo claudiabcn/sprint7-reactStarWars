@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
+import { createContext, useContext, useEffect, useState, ReactNode, useMemo } from 'react';
 import { User, onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../../../config/firebase';
 import { loginUser, logoutUser, registerUser, loginWithGoogle } from '../services/authService';
@@ -19,36 +19,50 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
       setLoading(false);
     });
 
     return unsubscribe;
   }, []);
 
+
   const login = async (email: string, password: string) => {
-    const user = await loginUser(email, password);
-    setUser(user);
+    await loginUser(email, password);
+
   };
 
   const register = async (email: string, password: string) => {
-    const user = await registerUser(email, password);
-    setUser(user);
+    await registerUser(email, password);
+
   };
 
   const loginGoogle = async () => {
-    const user = await loginWithGoogle();
-    setUser(user);
+    await loginWithGoogle();
+
   };
 
   const logout = async () => {
     await logoutUser();
-    setUser(null);
+
   };
 
+
+  const value = useMemo(
+    () => ({
+      user,
+      loading,
+      login,
+      register,
+      loginGoogle,
+      logout,
+    }),
+    [user, loading]
+  );
+
   return (
-    <AuthContext.Provider value={{ user, loading, login, register, loginGoogle, logout }}>
+    <AuthContext.Provider value={value}>
       {children}
     </AuthContext.Provider>
   );
