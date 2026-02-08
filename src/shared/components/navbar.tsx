@@ -1,20 +1,9 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../../features/auth/context/AuthContext";
 import { Button } from "../ui/Button";
-import { useNavigate } from "react-router-dom";
+import { useNavbar } from "../hooks/useNavbar";
 
 function Navbar() {
-  const { user, logout } = useAuth();
-  const navigate = useNavigate();
-
-const handleLogout = async () => {
-  try {
-    navigate('/', { replace: true });
-    await logout();
-  } catch (error) {
-    console.error("Error logging out:", error);
-  }
-  };
+  const { user, isLoggingOut, handleLogout } = useNavbar();
 
   return (
     <nav className="bg-white/80 backdrop-blur-sm shadow-lg border-b border-purple-200">
@@ -36,6 +25,8 @@ const handleLogout = async () => {
               <Button
                 onClick={handleLogout}
                 variant="primary"
+                isLoading={isLoggingOut}
+                disabled={isLoggingOut}
               >
                 Log Out
               </Button>

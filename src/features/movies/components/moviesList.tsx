@@ -31,11 +31,10 @@ function MoviesList({ movies, loadingMore, hasMore, onLoadMore, onSelectMovie }:
           const isLast = index === movies.length - 1;
           
           return (
-            <div key={`${movie.id}-${index}`} ref={isLast ? lastElementRef : null}>
+            <div key={movie.id} ref={isLast ? lastElementRef : null}>
               <Card onClick={() => onSelectMovie(movie)}>
                 <div className="flex flex-col h-full justify-between">
                   <div>
-
                     <h3 className="text-xl font-bold text-purple-800 mb-2 leading-tight py-1">
                       {movie.title}
                     </h3>
@@ -55,13 +54,14 @@ function MoviesList({ movies, loadingMore, hasMore, onLoadMore, onSelectMovie }:
 
       {loadingMore && (
         <div className="py-12">
-          <LoadingSpinner message="Scanning the galaxy for more movies..." />
+          <LoadingSpinner />
+          <p className="text-center text-purple-600 mt-4">Loading more movies...</p>
         </div>
       )}
 
       <div className="mt-12 pt-8 border-t border-purple-100 text-center">
         {!hasMore && movies.length > 0 && (
-          <p className="text-gray-400 italic mb-2">No more records in the archives.</p>
+          <p className="text-gray-400 italic mb-2">No more movies to show.</p>
         )}
         <p className="text-sm font-bold text-purple-400 uppercase tracking-widest">
           {movies.length} Movies Loaded
