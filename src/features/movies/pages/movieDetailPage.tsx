@@ -1,6 +1,8 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useMovieDetail } from "../hooks/useMovieDetail";
 import { IMAGE_BASE_URL } from "../../../config/appData";
+import { LoadingSpinner } from "../../../shared/ui/LoadingSpinner";
+import { ErrorMessage } from "../../../shared/ui/ErrorMessage";
 import { Button } from "../../../shared/ui/Button";
 
 function MovieDetail() {
@@ -8,31 +10,41 @@ function MovieDetail() {
   const navigate = useNavigate();
   const { movie, loading, error } = useMovieDetail(id);
 
-  if (loading) return (
-    <div className="flex flex-col justify-center items-center min-h-[60vh]">
-      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-purple-600"></div>
-      <p className="mt-4 text-purple-600 font-medium animate-pulse">Loading movie details...</p>
-    </div>
-  );
+  if (loading) {
+    return <LoadingSpinner />;
+  }
 
-  if (error) return (
-    <div className="text-center mt-20 p-8 bg-red-50 rounded-2xl border border-red-200 mx-auto max-w-md">
-      <p className="text-red-600 font-bold mb-4">{error}</p>
-      <Button onClick={() => navigate('/movies')} variant="primary">
-        Back to movies
-      </Button>
-    </div>
-  );
+  if (error) {
+    return (
+      <ErrorMessage message={error}>
+        <div className="mt-4">
+          <Button onClick={() => navigate('/movies')} variant="primary">
+            Back to Movies
+          </Button>
+        </div>
+      </ErrorMessage>
+    );
+  }
 
-  if (!movie) return null;
+  if (!movie) {
+    return (
+      <ErrorMessage message="Movie not found">
+        <div className="mt-4">
+          <Button onClick={() => navigate('/movies')} variant="primary">
+            Back to Movies
+          </Button>
+        </div>
+      </ErrorMessage>
+    );
+  }
 
   return (
     <div className="max-w-5xl mx-auto p-4 md:p-8">
       <button 
-        onClick={() => navigate(-1)} 
+        onClick={() => navigate('/movies')} 
         className="mb-6 flex items-center gap-2 text-purple-600 hover:text-purple-800 transition-colors font-semibold group"
       >
-        <span className="group-hover:-translate-x-1 transition-transform">←</span> Back
+        <span className="group-hover:-translate-x-1 transition-transform">←</span> Back to Movies
       </button>
 
       <div className="bg-white/70 backdrop-blur-md rounded-3xl p-6 md:p-10 shadow-2xl border border-white/40 flex flex-col md:flex-row gap-10">
@@ -52,9 +64,9 @@ function MovieDetail() {
         </div>
 
         <div className="flex flex-col">
-<h1 className="text-4xl md:text-5xl font-black mb-4 py-2 leading-normal bg-gradient-to-r from-purple-700 via-pink-600 to-blue-700 bg-clip-text text-transparent">
-  {movie.title}
-</h1>
+          <h1 className="text-4xl md:text-5xl font-black mb-4 py-2 leading-normal bg-gradient-to-r from-purple-700 via-pink-600 to-blue-700 bg-clip-text text-transparent">
+            {movie.title}
+          </h1>
 
           <div className="flex flex-wrap gap-3 mb-6">
             <span className="bg-purple-600 text-white px-3 py-1 rounded-full text-sm font-bold">

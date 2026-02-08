@@ -1,6 +1,7 @@
 import { useMovies } from "../hooks/useMovies";
 import MoviesList from "../components/moviesList";
 import { LoadingSpinner } from "../../../shared/ui/LoadingSpinner";
+import { ErrorMessage } from "../../../shared/ui/ErrorMessage";
 import { useNavigate } from "react-router-dom";
 
 function MoviesContainer() {
@@ -13,14 +14,18 @@ function MoviesContainer() {
 
   if (error) {
     return (
-      <div className="p-8 text-center">
-        <p className="text-red-400 text-xl bg-white/80 backdrop-blur-sm rounded-lg p-4 inline-block">{error}</p>
-      </div>
+      <ErrorMessage message={error}>
+        <button
+          onClick={() => window.location.reload()}
+          className="mt-4 text-purple-600 hover:text-purple-800 font-semibold"
+        >
+          Refresh page
+        </button>
+      </ErrorMessage>
     );
   }
 
   return (
-    
     <MoviesList
       movies={movies}
       loadingMore={loadingMore}
