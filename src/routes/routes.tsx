@@ -2,6 +2,9 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import HomePage from "../features/home/pages/homePage";
 import MoviesContainer from "../features/movies/pages/moviesContainerPage";
 import MovieDetail from "../features/movies/pages/movieDetailPage";
+import ActorsContainer from "../features/actors/pages/actorsContainerPage";
+import ActorDetail from "../features/actors/pages/actorDetailPage";
+import ActorMovies from "../features/actors/pages/actorMoviesPage";
 import LoginPage from "../features/auth/pages/loginPage";
 import RegisterPage from "../features/auth/pages/registerPage";
 import ProtectedRoute from "../features/auth/guards/ProtectedRoute";
@@ -26,6 +29,31 @@ function AppRoutes() {
         element={
           <ProtectedRoute>
             <MovieDetail />
+          </ProtectedRoute>
+        } 
+      />
+
+      <Route 
+        path="/actors" 
+        element={
+          <ProtectedRoute>
+            <ActorsContainer />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/actors/:id" 
+        element={
+          <ProtectedRoute>
+            <ActorDetail />
+          </ProtectedRoute>
+        } 
+      />
+      <Route 
+        path="/actors/:id/movies" 
+        element={
+          <ProtectedRoute>
+            <ActorMovies />
           </ProtectedRoute>
         } 
       />

@@ -29,16 +29,16 @@ export function ActorCard({ actor, onClick }: ActorCardProps) {
           </div>
         )}
       </div>
-      <div className="p-3">
-        <h3 className="font-bold text-purple-900 text-sm mb-1 truncate">
-          {actor.name}
-        </h3>
-        {actor.character && (
-          <p className="text-xs text-gray-500 truncate">
-            as {actor.character}
-          </p>
-        )}
-      </div>
+<div className="p-3">
+  <h3 className="font-bold text-purple-900 text-sm mb-1 line-clamp-2 min-h-[2.5rem]">
+    {actor.name}
+  </h3>
+  {actor.character && (
+    <p className="text-xs text-gray-500 truncate">
+      as {actor.character}
+    </p>
+  )}
+</div>
     </div>
   );
 }

@@ -22,6 +22,9 @@ function Navbar() {
               <Link to="/movies" className="text-gray-700 hover:text-purple-600 font-medium transition">
                 Movies
               </Link>
+              <Link to="/actors" className="text-gray-700 hover:text-purple-600 font-medium transition">
+                Actors
+              </Link>
               <Button
                 onClick={handleLogout}
                 variant="primary"
