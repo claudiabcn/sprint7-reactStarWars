@@ -1,14 +1,17 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { useMovieDetail } from "../hooks/useMovieDetail";
+import { useMovieCredits } from "../hooks/useMovieCredits";
 import { IMAGE_BASE_URL } from "../../../config/appData";
 import { LoadingSpinner } from "../../../shared/ui/LoadingSpinner";
 import { ErrorMessage } from "../../../shared/ui/ErrorMessage";
 import { Button } from "../../../shared/ui/Button";
+import { ActorCard } from "../../../shared/ui/ActorCard";
 
 function MovieDetail() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { movie, loading, error } = useMovieDetail(id);
+  const { actors, loading: loadingActors } = useMovieCredits(id);
 
   if (loading) {
     return <LoadingSpinner />;
@@ -98,6 +101,27 @@ function MovieDetail() {
           </div>
         </div>
       </div>
+
+      {loadingActors ? (
+        <div className="mt-12">
+          <LoadingSpinner />
+        </div>
+      ) : actors.length > 0 && (
+        <div className="mt-12">
+          <h2 className="text-3xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
+            Cast
+          </h2>
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            {actors.map((actor) => (
+              <ActorCard
+                key={actor.id}
+                actor={actor}
+                onClick={(actor) => navigate(`/actors/${actor.id}`)}
+              />
+            ))}
+          </div>
+        </div>
+      )}
     </div>
   );
 }
