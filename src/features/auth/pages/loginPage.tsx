@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { Button } from '../../../shared/ui/Button';
 import { useLoginForm } from '../hooks/useLoginForm';
+import MoviesBackground from '../../../shared/ui/MoviesBackground';
 
 function LoginPage() {
   const {
@@ -16,8 +17,10 @@ function LoginPage() {
   } = useLoginForm();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-100 via-pink-100 to-blue-100 px-4">
-      <div className="max-w-md w-full bg-white/80 backdrop-blur-sm rounded-2xl shadow-2xl p-8 border border-purple-200">
+    <div className="min-h-screen relative overflow-hidden flex items-center justify-center px-4">
+      <MoviesBackground />
+      
+      <div className="relative max-w-md w-full bg-white/80 backdrop-blur-md rounded-2xl shadow-2xl p-8 border border-purple-200">
         <h2 className="text-4xl py-1 font-bold text-center mb-6 bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
           Log In
         </h2>
