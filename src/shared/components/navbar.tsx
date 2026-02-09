@@ -9,7 +9,7 @@ function Navbar() {
     <nav className="bg-white/80 backdrop-blur-sm shadow-lg border-b border-purple-200">
       <div className="max-w-7xl mx-auto px-6 py-4 flex justify-between items-center">
         <Link to="/" className="text-3xl font-bold bg-gradient-to-r from-purple-600 via-pink-600 to-blue-600 bg-clip-text text-transparent">
-          MovieDB
+          MoviesWorld
         </Link>
         
         <div className="flex gap-6 items-center">

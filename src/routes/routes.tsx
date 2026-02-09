@@ -8,19 +8,24 @@ import ActorMovies from "../features/actors/pages/actorMoviesPage";
 import LoginPage from "../features/auth/pages/loginPage";
 import RegisterPage from "../features/auth/pages/registerPage";
 import ProtectedRoute from "../features/auth/guards/ProtectedRoute";
+import Layout from "../shared/components/layout";
 
 function AppRoutes() {
   return (
     <Routes>
+      {/* Rutas SIN Layout (HomePage, Login, Register) */}
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       
+      {/* Rutas CON Layout */}
       <Route 
         path="/movies" 
         element={
           <ProtectedRoute>
-            <MoviesContainer />
+            <Layout>
+              <MoviesContainer />
+            </Layout>
           </ProtectedRoute>
         } 
       />
@@ -28,7 +33,9 @@ function AppRoutes() {
         path="/movies/:id" 
         element={
           <ProtectedRoute>
-            <MovieDetail />
+            <Layout>
+              <MovieDetail />
+            </Layout>
           </ProtectedRoute>
         } 
       />
@@ -37,7 +44,9 @@ function AppRoutes() {
         path="/actors" 
         element={
           <ProtectedRoute>
-            <ActorsContainer />
+            <Layout>
+              <ActorsContainer />
+            </Layout>
           </ProtectedRoute>
         } 
       />
@@ -45,7 +54,9 @@ function AppRoutes() {
         path="/actors/:id" 
         element={
           <ProtectedRoute>
-            <ActorDetail />
+            <Layout>
+              <ActorDetail />
+            </Layout>
           </ProtectedRoute>
         } 
       />
@@ -53,7 +64,9 @@ function AppRoutes() {
         path="/actors/:id/movies" 
         element={
           <ProtectedRoute>
-            <ActorMovies />
+            <Layout>
+              <ActorMovies />
+            </Layout>
           </ProtectedRoute>
         } 
       />
