@@ -1,5 +1,6 @@
 import { Actor } from "../../config/types";
 import { IMAGE_BASE_URL } from "../../config/appData";
+import { Card } from "./Card";
 
 interface ActorCardProps {
   actor: Actor;
@@ -8,13 +9,8 @@ interface ActorCardProps {
 
 export function ActorCard({ actor, onClick }: ActorCardProps) {
   return (
-    <div
-      onClick={() => onClick?.(actor)}
-      className={`bg-white/80 backdrop-blur-sm border-2 border-purple-200 rounded-lg overflow-hidden hover:border-purple-300 hover:shadow-lg hover:shadow-purple-200/50 transition-all ${
-        onClick ? 'cursor-pointer' : ''
-      }`}
-    >
-      <div className="aspect-[2/3] bg-purple-100 overflow-hidden">
+    <Card onClick={() => onClick?.(actor)}>
+      <div className="aspect-[2/3] bg-purple-100 overflow-hidden rounded-lg -m-4 mb-3">
         {actor.profile_path ? (
           <img
             src={`${IMAGE_BASE_URL}${actor.profile_path}`}
@@ -29,16 +25,14 @@ export function ActorCard({ actor, onClick }: ActorCardProps) {
           </div>
         )}
       </div>
-<div className="p-3">
-  <h3 className="font-bold text-purple-900 text-sm mb-1 line-clamp-2 min-h-[2.5rem]">
-    {actor.name}
-  </h3>
-  {actor.character && (
-    <p className="text-xs text-gray-500 truncate">
-      as {actor.character}
-    </p>
-  )}
-</div>
-    </div>
+      <h3 className="font-bold text-purple-900 text-sm mb-1 line-clamp-2 min-h-[2.5rem]">
+        {actor.name}
+      </h3>
+      {actor.character && (
+        <p className="text-xs text-gray-500 truncate">
+          as {actor.character}
+        </p>
+      )}
+    </Card>
   );
 }

@@ -4,7 +4,7 @@ import { useActorDetail } from "../hooks/useActorDetail";
 import { LoadingSpinner } from "../../../shared/ui/LoadingSpinner";
 import { ErrorMessage } from "../../../shared/ui/ErrorMessage";
 import { Button } from "../../../shared/ui/Button";
-import { Card } from "../../../shared/ui/Card";
+import { MovieCard } from "../../../shared/ui/MovieCard";
 
 function ActorMovies() {
   const { id } = useParams<{ id: string }>();
@@ -48,26 +48,11 @@ function ActorMovies() {
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {movies.map((movie) => (
-            <Card key={movie.id} onClick={() => navigate(`/movies/${movie.id}`)}>
-              <div className="flex flex-col h-full justify-between">
-                <div>
-                  <h3 className="text-xl font-bold text-purple-800 mb-2 leading-tight py-1">
-                    {movie.title}
-                  </h3>
-                  <div className="flex items-center gap-2 text-gray-500 text-sm">
-                    <span className="bg-purple-100 text-purple-600 px-2 py-0.5 rounded text-xs font-semibold uppercase">
-                      Release
-                    </span>
-                    {movie.release_date}
-                  </div>
-                  <div className="mt-2">
-                    <span className="bg-purple-600 text-white px-2 py-0.5 rounded text-xs font-bold">
-                      ★ {movie.vote_average.toFixed(1)}
-                    </span>
-                  </div>
-                </div>
-              </div>
-            </Card>
+            <MovieCard 
+              key={movie.id} 
+              movie={movie} 
+              onClick={() => navigate(`/movies/${movie.id}`)} 
+            />
           ))}
         </div>
       )}

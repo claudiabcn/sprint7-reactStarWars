@@ -1,5 +1,5 @@
 import { Movie } from "../../../config/types";
-import { Card } from "../../../shared/ui/Card";
+import { MovieCard } from "../../../shared/ui/MovieCard";
 import { LoadingSpinner } from "../../../shared/ui/LoadingSpinner";
 import { useInfiniteScroll } from "../../../shared/hooks/useInfiniteScroll";
 
@@ -32,21 +32,7 @@ function MoviesList({ movies, loadingMore, hasMore, onLoadMore, onSelectMovie }:
           
           return (
             <div key={movie.id} ref={isLast ? lastElementRef : null}>
-              <Card onClick={() => onSelectMovie(movie)}>
-                <div className="flex flex-col h-full justify-between">
-                  <div>
-                    <h3 className="text-xl font-bold text-purple-800 mb-2 leading-tight py-1">
-                      {movie.title}
-                    </h3>
-                    <div className="flex items-center gap-2 text-gray-500 text-sm">
-                       <span className="bg-purple-100 text-purple-600 px-2 py-0.5 rounded text-xs font-semibold uppercase">
-                         Release
-                       </span>
-                       {movie.release_date}
-                    </div>
-                  </div>
-                </div>
-              </Card>
+              <MovieCard movie={movie} onClick={onSelectMovie} />
             </div>
           );
         })}
