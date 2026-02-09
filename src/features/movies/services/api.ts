@@ -55,3 +55,19 @@ export const getMovieById = async (id: string): Promise<Movie> => {
     throw error;
   }
 };
+
+export const getMovieCredits = async (id: string): Promise<MovieCredits> => {
+  try {
+    const response = await fetch(
+      `${API_BASE_URL}/movie/${id}/credits?language=en-EN`,
+      { headers: getHeaders() }
+    );
+
+    return handleResponse<MovieCredits>(response);
+  } catch (error) {
+    if (error instanceof TypeError) {
+      throw new Error('Network error: Please check your internet connection');
+    }
+    throw error;
+  }
+};
