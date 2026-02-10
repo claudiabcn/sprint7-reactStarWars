@@ -22,6 +22,7 @@ This project is a modern web application to explore popular movies, actors, and 
 
 ```
 src/
+├── test/ 
 ├── features/           
 │   ├── auth/          
 │   ├── movies/        
@@ -35,7 +36,7 @@ src/
 │   ├── appData.ts     
 │   ├── firebase.ts    
 │   └── types.ts       
-└── routes/            
+└── routes/           
 ```
 ## 🛠 Installation:
 
@@ -54,8 +55,9 @@ src/
 
 3. **Environment Variables:**
    
-    ```
     Create a `.env` file in the root directory:
+   
+    ```
     VITE_TMDB_TOKEN=your_tmdb_api_token_here
     VITE_FIREBASE_API_KEY=your_firebase_api_key
     VITE_FIREBASE_AUTH_DOMAIN=your_firebase_auth_domain
@@ -63,8 +65,9 @@ src/
     VITE_FIREBASE_STORAGE_BUCKET=your_firebase_storage_bucket
     VITE_FIREBASE_MESSAGING_SENDER_ID=your_firebase_sender_id
     VITE_FIREBASE_APP_ID=your_firebase_app_id
-    
+    ```
     Get your API keys:
+    ```
     - TMDB API: [https://www.themoviedb.org/settings/api](https://www.themoviedb.org/settings/api)
     - Firebase: [https://console.firebase.google.com/](https://console.firebase.google.com/)
     ```
