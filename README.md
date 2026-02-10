@@ -1,4 +1,4 @@
-# ⚡️ SPRINT 7: Using React for Building a Movies Webpage
+# ⚡️ SPRINT 7: Using react for building a movies webpage
 
 This project is a modern web application to explore popular movies, actors, and cinema content, built with React and powered by The Movie Database (TMDB) API.
 
