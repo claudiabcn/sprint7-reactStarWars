@@ -13,12 +13,11 @@ import Layout from "../shared/components/layout";
 function AppRoutes() {
   return (
     <Routes>
-      {/* Rutas SIN Layout (HomePage, Login, Register) */}
+
       <Route path="/" element={<HomePage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
       
-      {/* Rutas CON Layout */}
       <Route 
         path="/movies" 
         element={

@@ -3,7 +3,7 @@ import { useAuth } from '../context/AuthContext';
 import { LoadingSpinner } from '../../../shared/ui/LoadingSpinner';
 
 interface ProtectedRouteProps {
-  children: JSX.Element;
+  children: React.ReactNode;
 }
 
 function ProtectedRoute({ children }: ProtectedRouteProps) {
