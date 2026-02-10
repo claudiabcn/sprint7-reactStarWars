@@ -4,6 +4,11 @@ This project is a modern web application to explore popular movies, actors, and 
 
 ## 🎯 Objectives:
 
+- Build a scalable React app with feature-based architecture.
+- Add authentication and protected routes using Firebase.
+- Fetch dynamic movie and actor data from the TMDB API.
+- Use custom hooks and React Router for smooth navigation.
+
 ## 💻 Technology Stack:
 
 - **React** 
@@ -80,4 +85,4 @@ https://sprint7-movies.vercel.app/
 
 ## ⭐ Learnings and challenges:
 
-This sprint represented a
+This sprint significantly improved my understanding of how real-world React applications are structured. I learned to separate concerns using custom hooks for reusable logic, manage authentication and protected routes effectively, and handle dynamic and nested routing with React Router. Implementing infinite scroll deepened my knowledge of pagination, performance, and state management, while integrating TypeScript across the project improved code reliability and reinforced strong typing practices.
