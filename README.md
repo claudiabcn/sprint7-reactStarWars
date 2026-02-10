@@ -77,7 +77,11 @@ src/
    
     The app will be available at `http://localhost:5173`
 
-6.  **Run the Tests:** `npm test`
+6.  **Testing:** 
+
+Install Test Dependencies: `npm install -D vitest @testing-library/react @testing-library/jest-dom @testing-library/user-event jsdom`
+
+Run the test: `npm test`
 
 ## 📸 Demo:
 
