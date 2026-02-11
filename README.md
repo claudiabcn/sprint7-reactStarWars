@@ -93,3 +93,32 @@ https://sprint7-movies.vercel.app/
 ## ⭐ Learnings and challenges:
 
 This sprint significantly improved my understanding of how real-world React applications are structured. I learned to separate concerns using custom hooks for reusable logic, manage authentication and protected routes effectively, and handle dynamic and nested routing with React Router. Implementing infinite scroll deepened my knowledge of pagination, performance, and state management, while integrating TypeScript across the project improved code reliability and reinforced strong typing practices.
+
+## ⭐ Gherkin testing:
+
+Feature: Autenticación y acceso a rutas protegidas
+
+    Given el usuario NO está logueado
+    When intenta navegar a "/movies/1"
+    Then es redirigido a "/login"
+
+    Given el usuario SÍ está logueado
+    When intenta navegar a "/movies/1"
+    Then ProtectedRoute permite el acceso y se renderiza movieDetailPage
+
+    Given el usuario está en la página de login
+    When envía el formulario con credenciales válidas
+    Then AuthContext guarda el user y es redirigido a "/movies"
+
+    Given el usuario está en la página de login
+    When envía el formulario con credenciales inválidas
+    Then AuthContext no guarda ningún user y permanece en "/login"
+
+    Given el usuario SÍ está logueado
+    When clica en cerrar sesión, hace log out
+    Then el user en AuthContext pasa a null
+
+    Given cualquier usuario (logueado o no) 
+    When navega a una ruta que no existe como "/ruta-inventada" 
+    Then es redirigido a la home "/"
+

@@ -1,10 +1,11 @@
 import { render, screen, waitFor } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { MemoryRouter, Route, Routes } from 'react-router-dom'
+import { MemoryRouter, Route, Routes, Navigate } from 'react-router-dom'
 import { vi } from 'vitest'
 import ProtectedRoute from '../features/auth/guards/ProtectedRoute'
 import LoginPage from '../features/auth/pages/loginPage'
 import { useAuth } from '../features/auth/context/AuthContext'
+
 
 vi.mock('../features/auth/context/AuthContext', () => ({
   useAuth: vi.fn(),
@@ -147,7 +148,7 @@ describe('LoginPage - Formulario de autenticación', () => {
 
 describe('AuthContext - Cierre de sesión', () => {
 
-  it('CASO 5: usuario autenticado hace logout → user pasa a null', async () => {
+  it('CASO 5: usuario autenticado hace logout', async () => {
 
     const mockLogout = vi.fn().mockResolvedValue(undefined)
     const mockSetUser = vi.fn()
@@ -165,6 +166,25 @@ describe('AuthContext - Cierre de sesión', () => {
     await logout()
 
     expect(mockLogout).toHaveBeenCalledTimes(1)
+  })
+
+})
+
+describe('Rutas - Navegación a rutas inexistentes', () => {
+
+  it('CASO 6: ruta no existe → redirige a home', () => {
+    mockAuthAs({ uid: '123', email: 'test@test.com' })
+
+    render(
+      <MemoryRouter initialEntries={['/ruta-que-no-existe']}>
+        <Routes>
+          <Route path="/" element={<div>HomePage</div>} />
+          <Route path="*" element={<Navigate to="/" />} />
+        </Routes>
+      </MemoryRouter>
+    )
+
+    expect(screen.getByText('HomePage')).toBeInTheDocument()
   })
 
 })
