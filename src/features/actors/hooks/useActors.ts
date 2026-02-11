@@ -26,14 +26,21 @@ export const useActors = () => {
       setError(null);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error when loading actors';
-      setError(errorMessage);
-      setHasMore(false);
-      console.error('Error fetching actors:', err);
+      
+      // Si es error de internet Y ya tienes actores, NO mostrar error
+      if (errorMessage.includes('Network error') && actors.length > 0) {
+        setHasMore(false); // Solo detener el scroll
+        console.log('Sin internet, mostrando actores cargados');
+      } else {
+        setError(errorMessage); // Solo error si NO hay actores
+        setHasMore(false);
+        console.error('Error fetching actors:', err);
+      }
     } finally {
       setLoading(false);
       setLoadingMore(false);
     }
-  }, []);
+  }, [actors.length]);
 
   useEffect(() => {
     fetchActors(1);

@@ -1,11 +1,11 @@
 import { ReactNode } from 'react';
 
-interface CardProps {
+interface VerticalCardProps {
   children: ReactNode;
   onClick?: () => void;
 }
 
-export function Card({ children, onClick }: CardProps) {
+export function VerticalCard({ children, onClick }: VerticalCardProps) {
   return (
     <div
       onClick={onClick}
