@@ -6,10 +6,8 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
-        <div className="min-h-screen">
-          <AppRoutes />
-        </div>
-      </BrowserRouter>
+            <AppRoutes />
+            </BrowserRouter>
     </AuthProvider>
   );
 }
