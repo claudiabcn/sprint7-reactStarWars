@@ -1,14 +1,28 @@
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { getPopularActors } from "../services/api";
 import { Actor } from "../../../config/types";
 
+const CACHE_KEY = 'cached_actors';
+
 export const useActors = () => {
-  const [actors, setActors] = useState<Actor[]>([]);
+
+  const [actors, setActors] = useState<Actor[]>(() => {
+    try {
+      const cached = localStorage.getItem(CACHE_KEY);
+      return cached ? JSON.parse(cached) : [];
+    } catch {
+      return [];
+    }
+  });
+
   const [loading, setLoading] = useState<boolean>(true);
   const [loadingMore, setLoadingMore] = useState<boolean>(false);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [error, setError] = useState<string | null>(null);
+
+  const actorsLengthRef = useRef(actors.length);
+  actorsLengthRef.current = actors.length;
 
   const fetchActors = useCallback(async (page: number) => {
     try {
@@ -20,19 +34,27 @@ export const useActors = () => {
 
       const data = await getPopularActors(page);
       
-      setActors(prevActors => page === 1 ? data.results : [...prevActors, ...data.results]);
+      setActors(prevActors => {
+        const newActors = page === 1 ? data.results : [...prevActors, ...data.results];
+        try {
+          localStorage.setItem(CACHE_KEY, JSON.stringify(newActors));
+        } catch (err) {
+          console.log('Error saving to localStorage:', err);
+        }
+        return newActors;
+      });
+      
       setHasMore(page < data.total_pages);
       setCurrentPage(page);
       setError(null);
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Error when loading actors';
       
-      // Si es error de internet Y ya tienes actores, NO mostrar error
-      if (errorMessage.includes('Network error') && actors.length > 0) {
-        setHasMore(false); // Solo detener el scroll
+      if (errorMessage.includes('Network error') && actorsLengthRef.current > 0) {
+        setHasMore(false);
         console.log('Sin internet, mostrando actores cargados');
       } else {
-        setError(errorMessage); // Solo error si NO hay actores
+        setError(errorMessage);
         setHasMore(false);
         console.error('Error fetching actors:', err);
       }
@@ -40,7 +62,7 @@ export const useActors = () => {
       setLoading(false);
       setLoadingMore(false);
     }
-  }, [actors.length]);
+  }, []);
 
   useEffect(() => {
     fetchActors(1);
