@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { Button } from "../ui/Button";
 import { useNavbar } from "../hooks/useNavbar";
@@ -6,6 +6,11 @@ import { useNavbar } from "../hooks/useNavbar";
 function Navbar() {
   const { user, isLoggingOut, handleLogout } = useNavbar();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+
+  const isActive = (path) => {
+    return location.pathname === path || location.pathname.startsWith(path + '/');
+  };
 
   return (
     <nav className="bg-white/80 backdrop-blur-sm shadow-lg border-b border-purple-200">
@@ -30,16 +35,31 @@ function Navbar() {
           </button>
 
           <div className="hidden md:flex gap-6 items-center">
-            <Link to="/" className="text-gray-700 hover:text-purple-600 font-medium transition">
+            <Link 
+              to="/" 
+              className={`font-medium transition ${
+                location.pathname === '/' ? 'text-purple-600 font-semibold' : 'text-gray-700 hover:text-purple-600'
+              }`}
+            >
               Home
             </Link>
             
             {user ? (
               <>
-                <Link to="/movies" className="text-gray-700 hover:text-purple-600 font-medium transition">
+                <Link 
+                  to="/movies" 
+                  className={`font-medium transition ${
+                    isActive('/movies') ? 'text-purple-600 font-semibold' : 'text-gray-700 hover:text-purple-600'
+                  }`}
+                >
                   Movies
                 </Link>
-                <Link to="/actors" className="text-gray-700 hover:text-purple-600 font-medium transition">
+                <Link 
+                  to="/actors" 
+                  className={`font-medium transition ${
+                    isActive('/actors') ? 'text-purple-600 font-semibold' : 'text-gray-700 hover:text-purple-600'
+                  }`}
+                >
                   Actors
                 </Link>
                 <Button
@@ -70,7 +90,9 @@ function Navbar() {
           <div className="md:hidden mt-4 pb-4 flex flex-col gap-4">
             <Link 
               to="/" 
-              className="text-gray-700 hover:text-purple-600 font-medium transition px-2 py-2"
+              className={`font-medium transition px-2 py-2 ${
+                location.pathname === '/' ? 'text-purple-600 font-semibold' : 'text-gray-700 hover:text-purple-600'
+              }`}
               onClick={() => setIsMenuOpen(false)}
             >
               Home
@@ -80,14 +102,18 @@ function Navbar() {
               <>
                 <Link 
                   to="/movies" 
-                  className="text-gray-700 hover:text-purple-600 font-medium transition px-2 py-2"
+                  className={`font-medium transition px-2 py-2 ${
+                    isActive('/movies') ? 'text-purple-600 font-semibold' : 'text-gray-700 hover:text-purple-600'
+                  }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Movies
                 </Link>
                 <Link 
                   to="/actors" 
-                  className="text-gray-700 hover:text-purple-600 font-medium transition px-2 py-2"
+                  className={`font-medium transition px-2 py-2 ${
+                    isActive('/actors') ? 'text-purple-600 font-semibold' : 'text-gray-700 hover:text-purple-600'
+                  }`}
                   onClick={() => setIsMenuOpen(false)}
                 >
                   Actors
